@@ -15,12 +15,15 @@ from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
 import hashlib
 import requests
+from dotenv import load_dotenv
+import os
 
+load_dotenv()
 
-API_KEY = "9430:gk-AwJ4FwGp_ABKhEjbKEBFTg9w4DTGEb7WDi0Uu1x4V4CHZgrfOy1sirUQIMOFj"
+API_KEY = os.getenv("api_key")
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
+app.config['SECRET_KEY'] = os.getenv("secret_key")
 ckeditor = CKEditor(app)
 Bootstrap(app)
 
