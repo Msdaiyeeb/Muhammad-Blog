@@ -1,7 +1,7 @@
-from flask import Flask, render_template, redirect, url_for, flash, g, abort, Response, jsonify
+from flask import Flask, render_template, redirect, url_for, flash, abort
 from flask_bootstrap import Bootstrap
 from datetime import date
-from wtforms import StringField, EmailField, SubmitField
+from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired, Email
 from flask_wtf import FlaskForm
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -9,10 +9,8 @@ from flask_login import UserMixin, login_user, LoginManager, login_required, cur
 from forms import CreatePostForm
 from functools import wraps
 from flask_ckeditor import CKEditor, CKEditorField
-from sqlalchemy import Table, Column, Integer, ForeignKey
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import relationship
-from sqlalchemy.ext.declarative import declarative_base
 import hashlib
 import requests
 from dotenv import load_dotenv
@@ -124,14 +122,14 @@ class Comment(db.Model):
 #     db.create_all()
 
 class RegUser(FlaskForm):
-    email = EmailField("Email", validators=[DataRequired()])
+    email = StringField("Email", validators=[DataRequired(), Email()])
     password = StringField("Password", validators=[DataRequired()])
     name = StringField("Name", validators=[DataRequired()])
     submit = SubmitField("Sign me Up!")
 
 
 class LoginUser(FlaskForm):
-    email = EmailField("Email", validators=[DataRequired()])
+    email = StringField("Email", validators=[DataRequired(), Email()])
     password = StringField("Password", validators=[DataRequired()])
     submit = SubmitField("LET ME IN!")
 
